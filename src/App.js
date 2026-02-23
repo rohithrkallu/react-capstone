@@ -6,11 +6,11 @@ import Footer from './Footer';
 
 function App() {
   return (
-    <>
-<Header/>
-      <Main/>
-      <Footer/>
-    </>
+    <div className="page-grid">
+      <Header />
+      <Main />
+      <Footer />
+    </div>
   );
 }
 

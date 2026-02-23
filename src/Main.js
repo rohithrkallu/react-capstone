@@ -3,7 +3,7 @@ import hero from './hero.svg';
 
 export default function Main() {
     return (
-        <main id="main-content" role="main" aria-labelledby="main-heading" style={{padding: '2rem', maxWidth: 1100, margin: '0 auto'}}>
+        <main id="main-content" className="page-main" role="main" aria-labelledby="main-heading" style={{padding: '2rem'}}>
             <section className="hero" aria-label="Introduction">
                 <div className="hero-content">
                     <h1 id="main-heading">Little Lemon</h1>
