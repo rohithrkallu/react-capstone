@@ -1,14 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Nav = () => (
     <nav className="site-nav" aria-label="Main navigation">
         <ul>
-            <li><a className="nav-link" href="/home">HOME</a></li>
-            <li><a className="nav-link" href="/about">ABOUT</a></li>
-            <li><a className="nav-link" href="/menu">MENU</a></li>
-            <li><a className="nav-link" href="/reservations">RESERVATIONS</a></li>
-            <li><a className="nav-link" href="/order">ORDER ONLINE</a></li>
-            <li><a className="nav-link" href="/login">LOGIN</a></li>
+            <li><Link className="nav-link" to="/">HOME</Link></li>
+            <li><Link className="nav-link" to="/about">ABOUT</Link></li>
+            <li><Link className="nav-link" to="/menu">MENU</Link></li>
+            <li><Link className="nav-link" to="/booking">RESERVATIONS</Link></li>
+            <li><Link className="nav-link" to="/order">ORDER ONLINE</Link></li>
+            <li><Link className="nav-link" to="/login">LOGIN</Link></li>
         </ul>
     </nav>
 );
