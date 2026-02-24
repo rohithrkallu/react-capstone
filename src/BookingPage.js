@@ -1,12 +1,8 @@
 import React from 'react';
+import BookingForm from './BookingForm';
 
-export default function BookingPage() {
+export default function BookingPage({ availableTimes, dispatch }) {
     return (
-        <main className="page-main" role="main" style={{padding: '2rem'}}>
-            <section>
-                <h1>Reservations</h1>
-                <p>This is a placeholder for the booking/reservations page.</p>
-            </section>
-        </main>
+        <BookingForm availableTimes={availableTimes} dispatch={dispatch} />
     );
 }
