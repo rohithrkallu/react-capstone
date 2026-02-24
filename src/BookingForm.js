@@ -5,30 +5,69 @@ function BookingForm({ availableTimes, updateTimes, submitForm }) {
   const [time, setTime] = useState('17:00');
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState('Birthday');
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const validateForm = (currentDate, currentTime, currentGuests, currentOccasion) => {
+    const today = new Date().toISOString().split('T')[0];
+    const isDateValid = currentDate >= today && currentDate !== '';
+    const isTimeValid = currentTime !== '';
+    const isGuestsValid = currentGuests >= 1 && currentGuests <= 10;
+    const isOccasionValid = currentOccasion !== '';
+    setIsFormValid(isDateValid && isTimeValid && isGuestsValid && isOccasionValid);
+  };
+
+  const handleDateChange = (e) => {
+    const newDate = e.target.value;
+    setDate(newDate);
+    updateTimes(newDate);
+    validateForm(newDate, time, guests, occasion);
+  };
+
+  const handleTimeChange = (e) => {
+    const newTime = e.target.value;
+    setTime(newTime);
+    validateForm(date, newTime, guests, occasion);
+  };
+
+  const handleGuestsChange = (e) => {
+    const newGuests = parseInt(e.target.value, 10);
+    setGuests(newGuests);
+    validateForm(date, time, newGuests, occasion);
+  };
+
+  const handleOccasionChange = (e) => {
+    const newOccasion = e.target.value;
+    setOccasion(newOccasion);
+    validateForm(date, time, guests, newOccasion);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = { date, time, guests, occasion };
-    submitForm(formData);
+    if (isFormValid) {
+      const formData = { date, time, guests, occasion };
+      submitForm(formData);
+    }
   };
 
   return (
-    <form style={{ display: 'grid', maxWidth: '200px', gap: '20px' }} onSubmit={handleSubmit}>
+    <section aria-labelledby="booking-heading">
+      <h2 id="booking-heading">Book a Table</h2>
+      <form style={{ display: 'grid', maxWidth: '200px', gap: '20px' }} onSubmit={handleSubmit}>
       <label htmlFor="res-date">Choose date</label>
       <input
         type="date"
         id="res-date"
         value={date}
-        onChange={(e) => {
-          setDate(e.target.value);
-          updateTimes(e.target.value);
-        }}
+        min={new Date().toISOString().split('T')[0]}
+        required
+        onChange={handleDateChange}
       />
       <label htmlFor="res-time">Choose time</label>
       <select
         id="res-time"
         value={time}
-        onChange={(e) => setTime(e.target.value)}
+        required
+        onChange={handleTimeChange}
       >
         {availableTimes.map((timeOption) => (
           <option key={timeOption} value={timeOption}>
@@ -44,19 +83,23 @@ function BookingForm({ availableTimes, updateTimes, submitForm }) {
         max="10"
         id="guests"
         value={guests}
-        onChange={(e) => setGuests(e.target.value)}
+        required
+        onChange={handleGuestsChange}
       />
       <label htmlFor="occasion">Occasion</label>
       <select
         id="occasion"
         value={occasion}
-        onChange={(e) => setOccasion(e.target.value)}
+        required
+        onChange={handleOccasionChange}
       >
-        <option>Birthday</option>
-        <option>Anniversary</option>
+        <option value="">Select occasion</option>
+        <option value="Birthday">Birthday</option>
+        <option value="Anniversary">Anniversary</option>
       </select>
-      <input type="submit" value="Make Your reservation" />
+      <input type="submit" value="Make Your reservation" disabled={!isFormValid} aria-label="On Click" />
     </form>
+    </section>
   );
 }
 

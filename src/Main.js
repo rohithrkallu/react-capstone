@@ -12,7 +12,7 @@ export default function Main() {
                         A charming neighborhood bistro offering a curated selection of fresh, seasonal dishes.
                         Enjoy handcrafted meals and warm hospitality. Reserve a table to experience our specials.
                     </p>
-                    <button className="btn-primary">Reserve a Table</button>
+                    <button className="btn-primary" aria-label="Reserve a Table">Reserve a Table</button>
                 </div>
                 <div className="hero-image">
                     <img src={hero} alt="Hero" />
